@@ -49,3 +49,8 @@ p{
   text-align: center;
   color: green;
 }
+
+.error_message{
+  color:red;
+  font-size: 1.6rem;
+}
