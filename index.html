@@ -5,22 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/css/style.css" />
+    <script defer type="module" src="./app.js"></script>
     <title>Document</title>
   </head>
   <body>
     <div class="container">
       <h1>Timer</h1>
       <div class="input_container">
-        <input type="text" class="input inputh" placeholder="hour" />
-        <input type="text" class="input inputm" placeholder="minute" />
-        <input type="text" class="input inputs" placeholder="second" />
+        <input type="text" class="input input_h" placeholder="hour" />
+        <input type="text" class="input input_m" placeholder="minute" />
+        <input type="text" class="input input_s" placeholder="second" />
       </div>
       <div class="btn_container">
         <button class="btn btn_start">Start</button>
         <button class="btn btn_pause">Pause</button>
         <button class="btn btn_stop">Stop</button>
       </div>
-      <p>The current time is <span>00:00:00</span></p>
+      <p class="current_time">The current time is <span>00:00:00</span></p>
     </div>
   </body>
 </html>
