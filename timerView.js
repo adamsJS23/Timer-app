@@ -6,6 +6,9 @@ class Timer {
   _btnPause = document.querySelector(".btn_pause");
   _btnStop = document.querySelector(".btn_stop");
   _currentTime = document.querySelector(".current_time");
+  _messageContainer = document.querySelector(".message");
+  _errorMessage = "Invalid timer";
+  _message='The current time is '
 
   getTimerData() {
     const hour = +this._iptHour.value;
@@ -16,17 +19,14 @@ class Timer {
 
   addHandlerStart(handler) {
     this._btnStart.addEventListener("click", handler);
-    handler();
   }
 
   addHandlerPause(handler) {
     this._btnPause.addEventListener("click", handler);
-    handler();
   }
 
   addHandlerStop(handler) {
     this._btnStop.addEventListener("click", handler);
-    handler();
   }
 
   initialStatus() {
@@ -56,8 +56,26 @@ class Timer {
     this._btnStop.disabled = false;
   }
   // when With stop status we call initialStatus
-  stopStatus(){
+  stopStatus() {
     // this.initialStatus()
+  }
+
+  render(message=this._message) {
+    this._messageContainer.innerHTML = "";
+    const markup = `<p class="message">
+      ${message}
+    </p>
+    `;
+    this._messageContainer.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  renderError(errorMessage=this._errorMessage) {
+    this._messageContainer.innerHTML = "";
+    const markup = `<p class="error_message">
+      ${errorMessage}
+    </p>
+    `;
+    this._messageContainer.insertAdjacentHTML("afterbegin", markup);
   }
 }
 
