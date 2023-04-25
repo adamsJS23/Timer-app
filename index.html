@@ -12,16 +12,20 @@
     <div class="container">
       <h1>Timer</h1>
       <div class="input_container">
-        <input type="text" class="input input_h" placeholder="hour" />
-        <input type="text" class="input input_m" placeholder="minute" />
-        <input type="text" class="input input_s" placeholder="second" />
+        <input type="number" class="input input_h" placeholder="hour" />
+        <input type="number" class="input input_m" placeholder="minute" />
+        <input type="number" class="input input_s" placeholder="second" />
       </div>
       <div class="btn_container">
         <button class="btn btn_start">Start</button>
         <button class="btn btn_pause">Pause</button>
         <button class="btn btn_stop">Stop</button>
       </div>
-      <p class="current_time">The current time is <span>00:00:00</span></p>
+      <div class="message">
+        <p class="current_time message">
+          The current time is <span>00:00:00</span>
+        </p>
+      </div>
     </div>
   </body>
 </html>
