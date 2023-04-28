@@ -8,7 +8,7 @@ class Timer {
   _currentTime = document.querySelector(".current_time");
   _messageContainer = document.querySelector(".message");
   _errorMessage = "Invalid timer";
-  _message='The current time is '
+  _message = "The current time is ";
 
   getTimerData() {
     const hour = +this._iptHour.value;
@@ -55,27 +55,50 @@ class Timer {
     this._btnPause.disabled = true;
     this._btnStop.disabled = false;
   }
-  // when With stop status we call initialStatus
-  stopStatus() {
-    // this.initialStatus()
-  }
 
-  render(message=this._message) {
-    this._messageContainer.innerHTML = "";
-    const markup = `<p class="message">
-      ${message}
-    </p>
+  render(currTimer, isTimerUp) {
+    let markup;
+    if (isTimerUp) {
+      markup = `<p class="message">
+    Timer is up</p>
     `;
+    } else {
+      const [hour, minute, second] = currTimer;
+      markup = `<p class="message">
+      ${this._message}${this._formatValue(hour)}:${this._formatValue(
+        minute
+      )}:${this._formatValue(second)}
+        </p>
+        `;
+    }
+    this._messageContainer.innerHTML = "";
     this._messageContainer.insertAdjacentHTML("afterbegin", markup);
   }
 
-  renderError(errorMessage=this._errorMessage) {
+  clearContainer() {
+    this._messageContainer.innerHTML = "";
+  }
+
+  updateInputValue(timerArray) {
+    const [hour, minute, second] = timerArray;
+
+    this._iptHour.value = this._formatValue(hour);
+    this._iptMinute.value = this._formatValue(minute);
+    this._iptSecond.value = this._formatValue(second);
+  }
+
+  renderError(errorMessage = this._errorMessage) {
     this._messageContainer.innerHTML = "";
     const markup = `<p class="error_message">
       ${errorMessage}
     </p>
     `;
     this._messageContainer.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  _formatValue(value) {
+    if (value.toString.lenght === 2) return value;
+    return `0${value}`;
   }
 }
 

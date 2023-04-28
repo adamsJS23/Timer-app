@@ -1,10 +1,10 @@
 export let state = [];
 
-export function startCounter(TimerData) {
+export function isValidTimer(TimerData) {
   // debugger
   let [hour, minute, second] = TimerData;
   if (hour === 0 && minute === 0 && second === 0) {
-    state = [-1];
+    state = [-1]; // Invalid timer
     return;
   }
 
@@ -14,7 +14,30 @@ export function startCounter(TimerData) {
   if (minute < 0) minute = 0;
   if (second > 60) second = 59;
   if (second < 0) second = 0;
-  state = [hour, minute, second];
 
-  console.log(state);
+  state = [hour, minute, second];
+}
+
+export function startCountDown() {
+  let h = state[0];
+  let m = state[1];
+  let s = state[2];
+  if (s === 0) {
+    s = 3;
+    if (m === 0) {
+      m = 3;
+      if (h === 0) {
+        console.log("Counter Stop");
+      }
+      h--;
+    } else {
+      m--;
+    }
+  } else {
+    s--;
+  }
+
+  state[0] = h;
+  state[1] = m;
+  state[2] = s;
 }
