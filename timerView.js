@@ -7,35 +7,69 @@ class Timer {
   _btnStop = document.querySelector(".btn_stop");
   _currentTime = document.querySelector(".current_time");
   _messageContainer = document.querySelector(".message");
-  _errorMessage = "Invalid timer";
-  _message = "The current time is ";
 
   getTimerData() {
-    const hour = +this._iptHour.value;
-    const minute = +this._iptMinute.value;
-    const second = +this._iptSecond.value;
+    const hour = +this._iptHour.value || 0;
+    const minute = +this._iptMinute.value || 0;
+    const second = +this._iptSecond.value || 0;
     return [hour, minute, second];
   }
 
-  addHandlerStart(handler) {
-    this._btnStart.addEventListener("click", handler);
+  render(currTimer) {
+    const [hour, minute, second] = currTimer;
+    const markup = `<p class="message">
+    The current time is ${this._formatValue(hour)}h:${this._formatValue(
+      minute
+    )}m:${this._formatValue(second)}s
+        </p>
+        `;
+    this._clearContainer();
+    this._insertHtml(markup);
   }
 
-  addHandlerPause(handler) {
-    this._btnPause.addEventListener("click", handler);
+  _formatValue(value) {
+    if (value.toString().trim().length === 1) {
+      return `0${value}`;
+    } else return value;
   }
 
-  addHandlerStop(handler) {
-    this._btnStop.addEventListener("click", handler);
+  _clearContainer() {
+    this._messageContainer.innerHTML = "";
+  }
+
+  _insertHtml(markup) {
+    this._messageContainer.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  renderMessage(message) {
+    this._clearContainer();
+    const markup = `<p class="message">
+      ${message}
+    </p>
+    `;
+    this._insertHtml(markup);
+  }
+
+  renderError(errorMessage) {
+    this._clearContainer();
+    const markup = `<p class="error_message">
+      ${errorMessage}
+    </p>
+    `;
+    this._insertHtml(markup);
   }
 
   initialStatus() {
-    [this._iptHour, this._iptMinute, this._iptSecond].forEach(
-      (ipt) => (ipt.disabled = false)
-    );
+    [this._iptHour, this._iptMinute, this._iptSecond].forEach((ipt) => {
+      ipt.disabled = false;
+      ipt.value = "";
+    });
+
     this._btnStart.disabled = false;
     this._btnPause.disabled = true;
     this._btnStop.disabled = true;
+
+    this._clearContainer();
   }
 
   startStatus() {
@@ -56,27 +90,16 @@ class Timer {
     this._btnStop.disabled = false;
   }
 
-  render(currTimer, isTimerUp) {
-    let markup;
-    if (isTimerUp) {
-      markup = `<p class="message">
-    Timer is up</p>
-    `;
-    } else {
-      const [hour, minute, second] = currTimer;
-      markup = `<p class="message">
-      ${this._message}${this._formatValue(hour)}:${this._formatValue(
-        minute
-      )}:${this._formatValue(second)}
-        </p>
-        `;
-    }
-    this._messageContainer.innerHTML = "";
-    this._messageContainer.insertAdjacentHTML("afterbegin", markup);
+  addHandlerStart(handler) {
+    this._btnStart.addEventListener("click", handler);
   }
 
-  clearContainer() {
-    this._messageContainer.innerHTML = "";
+  addHandlerPause(handler) {
+    this._btnPause.addEventListener("click", handler);
+  }
+
+  addHandlerStop(handler) {
+    this._btnStop.addEventListener("click", handler);
   }
 
   updateInputValue(timerArray) {
@@ -84,21 +107,8 @@ class Timer {
 
     this._iptHour.value = this._formatValue(hour);
     this._iptMinute.value = this._formatValue(minute);
+    // debugger
     this._iptSecond.value = this._formatValue(second);
-  }
-
-  renderError(errorMessage = this._errorMessage) {
-    this._messageContainer.innerHTML = "";
-    const markup = `<p class="error_message">
-      ${errorMessage}
-    </p>
-    `;
-    this._messageContainer.insertAdjacentHTML("afterbegin", markup);
-  }
-
-  _formatValue(value) {
-    if (value.toString.lenght === 2) return value;
-    return `0${value}`;
   }
 }
 

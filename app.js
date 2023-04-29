@@ -2,63 +2,74 @@
 import timer from "./timerView.js";
 import * as model from "./model.js";
 let countDown;
+const RESET_UI_SEC = 1500; // 1.5s
 function controlStart() {
-  // 1. Start the counter
+  // Pass inputs to Model for check
   model.isValidTimer(timer.getTimerData());
 
-  // 2 Check if the timer is valid, -1 means invalid timer
-  if (model.state.length === 1) {
-    timer.renderError();
-    timer.initialStatus();
+  // Check the timer is valid, if model.state is empty then inputs are nor valid
+  if (!model.state.length) { 
+    timer.renderError("Invalid timer");
+    resetUI();
     return;
   }
 
-  // 3. Set buttons and inputs in start status
+  // Set buttons and inputs in start status
   timer.startStatus();
 
   countDown = setInterval(() => {
-    // 4 Start count down
+    // Start count down
     model.startCountDown(model.state);
-    // 4 Render current time
-    timer.render(model.state,false);
-    // 5 Update input value
+
+    // Render current time
+    timer.render(model.state);
+
+    // Update input value
     timer.updateInputValue(model.state);
-    // Chech if timer is up
-    if (model.state.every((item) => item === 0)) {
-      // Reset timer
-      clearInterval(countDown);
-      // Call stopTimer
-      stopTimer();
-    }
-  }, 1000);
+
+    // Chech timer is up
+    isTimerUp(model.state);
+  }, RESET_UI_SEC);
 }
 
-function stopTimer() {
-  // Render time is up message
-  // debugger;
-  timer.render(model.state,true);
+function isTimerUp(timerArray) {
+  if (timerArray.every((item) => item === 0)) {
+
+    // Reset timer
+    clearInterval(countDown);
+
+    // Render Message
+    timer.renderMessage("Timer is up!!");
+
+    // Call resetUI
+    resetUI();
+  }
+}
+
+function resetUI() {
   setTimeout(() => {
-    timer.clearContainer();
-    // enable inputs, start button
     timer.initialStatus();
-  }, 2000);
+    model.resetState();
+  }, RESET_UI_SEC);
 }
 
 function controlPause() {
   // 1. Set buttons and inputs in pause status
   timer.pauseStatus();
+
   // 2. Pause count down
   clearInterval(countDown);
 }
 
 function controlStop() {
-  // 1. Set buttons and inputs in stop status
-  timer.initialStatus();
+  // Render Message
+  timer.renderMessage("Timer Stopped!!");
 
   // Reset timer
   clearInterval(countDown);
-  // Call stopTimer
-  stopTimer();
+
+  // Call resetUI
+  resetUI();
 }
 
 init();
