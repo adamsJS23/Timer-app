@@ -9,23 +9,28 @@
     <title>Document</title>
   </head>
   <body>
+    
+    <div class="message">
+      <!-- <p class='notification'>The current time is <span>00:00:00</span></p> -->
+    </div>
     <div class="container">
-      <h1>Timer</h1>
-      <div class="input_container">
+      <h1>TimerApp</h1>
+      <div class="input_btn_container">
         <input type="number" class="input input_h" placeholder="hour" />
         <input type="number" class="input input_m" placeholder="minute" />
         <input type="number" class="input input_s" placeholder="second" />
-      </div>
-      <div class="btn_container">
-        <button class="btn btn_start">Start</button>
-        <button class="btn btn_pause">Pause</button>
-        <button class="btn btn_stop">Stop</button>
-      </div>
-      <div class="message">
-        <p class="current_time message">
-          <!-- The current time is <span>00:00:00</span> -->
-        </p>
+        <button class="btn btn_start"><ion-icon name="play-outline"></ion-icon>Start</button>
+        <button class="btn btn_pause"><ion-icon name="pause-outline"></ion-icon>Pause</button>
+        <button class="btn btn_stop"><ion-icon name="stop-outline"></ion-icon>Stop</button>
       </div>
     </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>

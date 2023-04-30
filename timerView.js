@@ -5,7 +5,6 @@ class Timer {
   _btnStart = document.querySelector(".btn_start");
   _btnPause = document.querySelector(".btn_pause");
   _btnStop = document.querySelector(".btn_stop");
-  _currentTime = document.querySelector(".current_time");
   _messageContainer = document.querySelector(".message");
 
   getTimerData() {
@@ -17,8 +16,8 @@ class Timer {
 
   render(currTimer) {
     const [hour, minute, second] = currTimer;
-    const markup = `<p class="message">
-    The current time is ${this._formatValue(hour)}h:${this._formatValue(
+    const markup = `<p class='notification'><ion-icon name="timer-outline"></ion-icon>
+    The current timer is ${this._formatValue(hour)}h:${this._formatValue(
       minute
     )}m:${this._formatValue(second)}s
         </p>
@@ -43,7 +42,7 @@ class Timer {
 
   renderMessage(message) {
     this._clearContainer();
-    const markup = `<p class="message">
+    const markup = `<p class='notification'>
       ${message}
     </p>
     `;
@@ -52,8 +51,8 @@ class Timer {
 
   renderError(errorMessage) {
     this._clearContainer();
-    const markup = `<p class="error_message">
-      ${errorMessage}
+    const markup = `<p class='notification'>
+    <ion-icon name="warning-outline" class="icon"></ion-icon>${errorMessage}
     </p>
     `;
     this._insertHtml(markup);
@@ -104,10 +103,8 @@ class Timer {
 
   updateInputValue(timerArray) {
     const [hour, minute, second] = timerArray;
-
     this._iptHour.value = this._formatValue(hour);
     this._iptMinute.value = this._formatValue(minute);
-    // debugger
     this._iptSecond.value = this._formatValue(second);
   }
 }

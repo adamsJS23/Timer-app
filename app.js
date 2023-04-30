@@ -64,7 +64,6 @@ function controlPause() {
 function controlStop() {
   // Render Message
   timer.renderMessage("Timer Stopped!!");
-
   // Reset timer
   clearInterval(countDown);
 
