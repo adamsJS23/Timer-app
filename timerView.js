@@ -19,11 +19,12 @@ class Timer {
     const markup = `<p class='notification'><ion-icon name="timer-outline"></ion-icon>
     The current timer is ${this._formatValue(hour)}h:${this._formatValue(
       minute
-    )}m:${this._formatValue(second)}s
-        </p>
-        `;
-    this._clearContainer();
-    this._insertHtml(markup);
+      )}m:${this._formatValue(second)}s
+      </p>
+      `;
+      this._clearContainer();
+      this._insertHtml(markup);
+      this._showNotification()
   }
 
   _formatValue(value) {
@@ -38,6 +39,14 @@ class Timer {
 
   _insertHtml(markup) {
     this._messageContainer.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  _showNotification(){
+    this._messageContainer.classList.remove('hidden')
+  }
+
+  _hideNotification(){
+    this._messageContainer.classList.add('hidden')
   }
 
   renderMessage(message) {
@@ -56,6 +65,7 @@ class Timer {
     </p>
     `;
     this._insertHtml(markup);
+    this._showNotification();
   }
 
   initialStatus() {
@@ -68,7 +78,7 @@ class Timer {
     this._btnPause.disabled = true;
     this._btnStop.disabled = true;
 
-    this._clearContainer();
+    this._hideNotification();
   }
 
   startStatus() {

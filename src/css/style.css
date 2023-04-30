@@ -19,6 +19,7 @@ body {
   position: absolute;
   top: 0;
   transform: translateY(100%);
+  transition: all 0.5s ease-in-out ;
 }
 
 .notification {
@@ -102,4 +103,8 @@ p {
 
 .icon {
   font-size: 2rem;
+}
+
+.hidden{
+  transform: translateY(-100%);
 }

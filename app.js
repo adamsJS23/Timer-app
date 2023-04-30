@@ -2,7 +2,7 @@
 import timer from "./timerView.js";
 import * as model from "./model.js";
 let countDown;
-const RESET_UI_SEC = 1500; // 1.5s
+const RESET_UI_SEC = 2000; // 1.5s
 function controlStart() {
   // Pass inputs to Model for check
   model.isValidTimer(timer.getTimerData());
@@ -47,7 +47,7 @@ function isTimerUp(timerArray) {
 }
 
 function resetUI() {
-  setTimeout(() => {
+  setTimeout(() => {  
     timer.initialStatus();
     model.resetState();
   }, RESET_UI_SEC);
@@ -59,6 +59,9 @@ function controlPause() {
 
   // 2. Pause count down
   clearInterval(countDown);
+
+  // 3. Render message
+  timer.renderMessage("Timer paused!!");
 }
 
 function controlStop() {
